@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import User from '../schemas/users';
 import bcrypt from 'bcrypt';
 
-const expiresIn = '1d'; //TIEMPO DE EXPIRACION unode
+const expiresIn = '1m'; //TIEMPO DE EXPIRACION unode
 const secret = 'sample2018' // SECRET KEY
 
 /**

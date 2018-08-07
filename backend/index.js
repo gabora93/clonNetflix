@@ -4,6 +4,11 @@ import User from './src/schemas/users';
 import Genre from './src/schemas/genres';
 import bodyParser from 'body-parser';
 import { createToken } from './src/resolvers/create';
+import { verifyToken } from './src/resolvers/verify';
+import graphQLHTTP from 'express-graphql';
+
+import schema from './src/grapqhql';
+
 
 const JsonParser = bodyParser.json();
 
@@ -98,3 +103,31 @@ app.use('/login', JsonParser, (req,res)=>{
         })
     }
 })
+
+app.use('/verifyToken', JsonParser, (req,res)=> {
+    if(req.method === 'POST'){
+        try{
+            const token = req.headers['authorization']
+            verifyToken(token)
+            .then(user => {
+                res.status(200).json({user});
+                console.log(user)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        } catch(e){
+            console.log(e.message);
+            res.status(401).json({
+                //MOSTRAR MENSAJE SI EL TOKEN NO FUNCA
+                message:e.message
+            })
+        }
+    }
+})
+
+app.use('/graphql', graphQLHTTP((req,res)=>({
+    schema,
+    graphiql: true,
+    pretty:true
+})))
