@@ -1,7 +1,6 @@
 import User from '../schemas/users';
 import jwt from 'jsonwebtoken';
-import { resolve } from 'path';
-import { rejects } from 'assert';
+
 
 
 const secret = 'sample2018' // SECRET KEY

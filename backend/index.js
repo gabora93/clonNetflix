@@ -6,16 +6,11 @@ import bodyParser from 'body-parser';
 import { createToken } from './src/resolvers/create';
 import { verifyToken } from './src/resolvers/verify';
 import graphQLHTTP from 'express-graphql';
-
+import cors from 'cors';
 import schema from './src/grapqhql';
 
-
 const JsonParser = bodyParser.json();
-
-
-
 const app = express();
-
 const port = process.env.Port || 8888 ;
 
 mongoose.connect('mongodb://gabo:gabo2018@ds111492.mlab.com:11492/clone-netflix2018');
@@ -25,10 +20,11 @@ const db = mongoose.connection;
 db.on('error',() => console.log('Failed to connect to mongoDB'))
     .once('open',()=> console.log('Connected to MongoDB', port));
 
-
 app.listen(port, () => {
     console.log('Server Works on port ' + port);
 })
+
+app.use((cors()));
 
 
 app.get('/', (req,res) => {
