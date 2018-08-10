@@ -11,7 +11,7 @@ const GenreSchema = new Schema({
         type : String,
         require: true
   }
-},{'collection': 'genre', timestamps: true});
+},{'collection': 'genres', timestamps: true});
 
 
-export default mongoose.model('genre',GenreSchema);
+export default mongoose.model('genres',GenreSchema);
